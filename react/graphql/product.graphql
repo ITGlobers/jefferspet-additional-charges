@@ -1,0 +1,13 @@
+query getProductAttachments(
+  $identifier: ProductUniqueIdentifier
+) {
+  product(identifier: $identifier)
+    {
+    productName
+    properties {
+      originalName
+      name
+      values
+    }
+  }
+}
