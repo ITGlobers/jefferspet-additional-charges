@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 interface Props{
-    children:any
+    children: ReactElement | ReactElement[]
 }
 
 const AdditionalCharges = ({ children }:Props) => {
