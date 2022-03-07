@@ -7,5 +7,13 @@
   },
   "additional-charges": {
     "component": "actionsAdditionalApp"
+  },
+  "additional-charges-logic": {
+    "component": "AdditionalCharges",
+    "composition":"children",
+    "allowed":[
+      "minicart-base-content",
+      "minicart.v2"
+    ]
   }
 }
