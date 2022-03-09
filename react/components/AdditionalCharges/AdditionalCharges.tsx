@@ -1,15 +1,13 @@
-import React, { ReactElement } from 'react'
+import { useEffect } from 'react'
+import useSpecifications from '../../hooks/useSpecifications'
 
-interface Props{
-    children: ReactElement | ReactElement[]
-}
-
-const AdditionalCharges = ({ children }:Props) => {
-  return (
-    <>
-        { children }
-    </>
-  )
+const AdditionalCharges = () => {
+  const specifications = useSpecifications()
+  useEffect(() => {
+    console.log(specifications)
+  }, [specifications])
+  
+  return null
 }
 
 export default AdditionalCharges
