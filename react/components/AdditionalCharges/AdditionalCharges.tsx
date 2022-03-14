@@ -1,13 +1,9 @@
-import { useEffect } from 'react'
-import useSpecifications from '../../hooks/useSpecifications'
+import useQuantityValidation from '../../hooks/useQuantityValidation'
 
 const AdditionalCharges = () => {
-  const specifications = useSpecifications()
-  useEffect(() => {
-    console.log(specifications)
-  }, [specifications])
-  
-  return null
+  const validation = useQuantityValidation()
+
+  return validation
 }
 
 export default AdditionalCharges
