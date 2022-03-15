@@ -15,5 +15,10 @@
       "minicart-base-content",
       "minicart.v2"
     ]
+  },
+  "additional-charges-item":{
+    "component": "AdditionalChargesItem",
+    "composition": "children",
+    "allowed":"*"
   }
 }
