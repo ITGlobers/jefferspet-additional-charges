@@ -1,9 +1,14 @@
+import React, { useEffect } from 'react'
 import useQuantityValidation from '../../hooks/useQuantityValidation'
 
 const AdditionalCharges = () => {
-  const validation = useQuantityValidation()
+  const [ includeAdditionalCharges, { selectedItemQuantity }]:any = useQuantityValidation()
 
-  return validation
+  useEffect(()=>{
+    includeAdditionalCharges()
+  }, [selectedItemQuantity])
+
+  return <> </>
 }
 
 export default AdditionalCharges

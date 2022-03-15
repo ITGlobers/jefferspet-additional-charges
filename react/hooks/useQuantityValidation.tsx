@@ -13,7 +13,10 @@ const selectedItemId = "25811"
 const additionalChargeId = "109139"
 
 const useQuantityValidation = () => {
-  const [state, ] = useState('')
+  const [state, setState] = useState({
+    additionalQuantity:0,
+    selectedItemQuantity:0
+  })
   const {orderForm:{ items }} = useOrderForm()
   const { addItem, removeItem, updateQuantity } = useOrderItems();
   const selectedItem = items.find((item:Item) => item.productId === selectedItemId)
@@ -22,8 +25,8 @@ const useQuantityValidation = () => {
   const addShipAmtQty = 6
   const addShipAmt = 5
   const selectedItemQuantity = selectedItem?.quantity
-  
-  useEffect(() => {
+
+  const includeAdditionalCharges = () => {
     const additionalChargeItem = {
       assemblyId: "Additional Charge_shipping",
       id: additionalChargeId,
@@ -44,11 +47,22 @@ const useQuantityValidation = () => {
         removeItem
     }
     
-    quantityController({methods, quantities, itemToUpdate})
-    
-  }, [ selectedItemQuantity ])
+    const additionalQuantity = quantityController({methods, quantities, itemToUpdate})
+
+    setState({
+      ...state,
+      additionalQuantity
+    })
+  }
   
-  return state
+  useEffect(()=>{
+    setState({
+      ...state,
+      selectedItemQuantity
+    })
+  }, [selectedItemQuantity])
+  
+  return [includeAdditionalCharges, state]
 }
 
 export default useQuantityValidation
