@@ -1,39 +1,38 @@
 import { useState, useEffect } from 'react'
 import { useOrderForm } from "vtex.order-manager/OrderForm"
-import { parseSpecificationsValue } from '../modules/parseSpecifications'
+import { useProduct } from 'vtex.product-context'
+import { getLocalStorageSpecification, getProductContextSpecifications } from '../modules/specificationsHelper'
 
-interface Item{
-    productId:string
-}
+const specificationsName = ["AddShipAmt", "AddShipAmtQty", "HazShipAmt", "HazShipAmtQty"] 
 
 const useSpecifications = () => {
-  const [state, setState] = useState([{}])
+  const [state, setState]:any = useState({})
   const { orderForm:{ items } } = useOrderForm()
-  const itemsId = items.map((item:Item) => item.productId)
+  const productContext = useProduct()
+  const productId = productContext?.product?.productId
   
-  const parseValue = (data:any) =>{
-      const AddShipAmt = parseSpecificationsValue({specificName:'AddShipAmtQty', specifications:data})
-      const AddShipAmtQty = parseSpecificationsValue({specificName:'AddShipAmtQty', specifications:data})
-      return {AddShipAmt, AddShipAmtQty}
-  }
-  
-  useEffect(() => {
-    itemsId.forEach((itemId:string) => {
-        const additionalChargeItemId = '50114'
-        if(itemId === additionalChargeItemId) return
-        const url = `/api/catalog_system/pvt/products/${itemId}/specification`
-        fetch(url)
-        .then(response=>response.json())
-        .then(data => {
-            const specifications = parseValue(data)
-            setState([...state, {[itemId]:{specifications}}])
-        })
-    });
-  }, [items])
+  const handleSpecifications = (specifications:any) => {
+    const currentSpecifications = state[productId] ?? []
 
-  useEffect(()=>{
-    console.log(state)
-  }, [state])
+    setState({
+      ...state,
+      [productId]:[
+        ...currentSpecifications,
+        specifications
+      ]
+    })
+  }
+
+  useEffect(() => {
+    const specifications = getLocalStorageSpecification({productId})
+
+    if(!specifications && !!productId){
+      const specifications = getProductContextSpecifications({ productContext:JSON.stringify(productContext), specificationsName })
+      handleSpecifications(specifications)
+    }else if(!!specifications){
+      handleSpecifications(specifications)
+    }
+  }, [ items ])
 
   return state
 }
