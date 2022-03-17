@@ -5,7 +5,16 @@
     "lib": ["dom"],
     "module": "esnext",
     "moduleResolution": "node",
-    "target": "es2017"
+    "target": "es2017",
+    "baseUrl": "./",
+    "paths": {
+        "@app/*": [
+            "*"
+        ],
+        "@typings/*":[
+          "./typings/*"
+        ]
+    }
   },
-  "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"]
+  "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts", "webpack.config.js"]
 }
