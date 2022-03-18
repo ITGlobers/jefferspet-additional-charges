@@ -14,3 +14,21 @@ export const removeAdditionalItem = ({ itemIdex, idSelector }:Props) =>{
         console.log('itemIdex: ', itemIdex)
     }, 10)
 }
+
+export const deleteAdditionalCartItem = () =>{
+    setTimeout(()=>{
+        const addition = document.querySelector('#image-109139')
+        const additionalItem = (
+            addition?.
+            parentElement?.
+            parentElement?.
+            parentElement?.
+            parentElement?.
+            parentElement?.
+            parentElement?.
+            parentElement?.
+            parentElement
+        )
+        additionalItem?.remove()
+    }, 1000)
+}
