@@ -1,4 +1,4 @@
-interface OrderFormContext {
+export interface OrderFormContext {
   orderForm: OrderForm
   loading: boolean
 }
@@ -63,4 +63,10 @@ interface Message {
   code: string
   status: string
   text: string
+}
+
+export interface Item{
+  productId:string
+  quantity:number
+  id:string
 }
