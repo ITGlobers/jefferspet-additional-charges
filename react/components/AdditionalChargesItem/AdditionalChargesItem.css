@@ -1,0 +1,20 @@
+.additionals__wrapper{
+    align-items: end;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.additionals__item{
+    color: rgb(226, 89, 53);
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Roboto Bold";
+}
+.additionals__price{
+    color: rgb(226, 89, 53);
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "Roboto Bold";
+    justify-self: flex-end;
+}
+
