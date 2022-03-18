@@ -1,7 +1,7 @@
 interface ControllerProps{
     methods:Methods
-    quantities: Quantites
     itemToUpdate: string
+    quantities:Quantites
 }
 
 interface Methods{
@@ -12,29 +12,22 @@ interface Methods{
 
 interface Quantites{
     currentQuantity: number
-    selectedItemQuantity: number
-    addShipAmtQty: number
-    addShipAmt: number
+    quantityToAdd: number
 }
 
 
 
 export const quantityController = ({ methods, quantities, itemToUpdate}:ControllerProps) => {
     
+    const  { quantityToAdd, currentQuantity } = quantities
+
     const {addItem, updateQuantity, removeItem} = methods
-    const {
-        currentQuantity, 
-        selectedItemQuantity, 
-        addShipAmtQty, 
-        addShipAmt
-    } = quantities
 
     const item = JSON.parse(itemToUpdate)
-    const quantityToAdd = Math.ceil(selectedItemQuantity / addShipAmtQty) * addShipAmt
 
-    if( !currentQuantity && selectedItemQuantity){
+    if( !currentQuantity && quantityToAdd){
         addItem([item])
-    }else if( currentQuantity && !selectedItemQuantity){
+    }else if( currentQuantity && !quantityToAdd ){
         removeItem(item)
     }else{
         updateQuantity({...item, quantity:quantityToAdd})
