@@ -1,6 +1,9 @@
 import React, { ReactChildren, useEffect, useState } from 'react'
 import { useOrderForm } from 'vtex.order-manager/OrderForm'
 import { useCssHandles } from 'vtex.css-handles'
+import { deleteAdditionalCartItem } from '../../helpers/removeItem'
+
+import './AdditionalChargesItem.css'
 
 interface Props{
   children: ReactChildren
@@ -10,7 +13,7 @@ interface Item{
   id:string
 }
 
-const CSS_HANDLES = ['items__wrapper']
+const CSS_HANDLES = ['items__wrapper', 'additionals__price', 'additionals__item', 'additionals__icon', 'additionals__wrapper']
 const itemsWrapperId = 'items__wrapper'
 
 const additionalChargeId = "109139"
@@ -33,6 +36,7 @@ const AdditionalChragesItem = ({ children }:Props) => {
 
   useEffect(()=>{
     getCurrentTotalValue()
+    deleteAdditionalCartItem()
   },[ items ])
 
   return (
@@ -41,12 +45,15 @@ const AdditionalChragesItem = ({ children }:Props) => {
         { children }
       </div>  
       {
-        !isNaN(price) && price && additionalItemIndex > 0
+        !isNaN(price) && (price !== 0) && additionalItemIndex > 0
         &&
-        <p className={`ph4 ph6-l pt5 c-on-base`}>
-          Additional charges: 
-          <span> ${ price }</span> 
-        </p>
+        <div className={`ph4 ph6-l pt5 c-on-base ${ handles.additionals__wrapper }`}>
+          <p className={`${ handles.additionals__item }`}>
+            <span className={`${handles.additionals__icon} mr4`}></span>
+            Additional charges:
+          </p>
+          <p className={ `${handles.additionals__price} ml4` }> ${ price }</p> 
+        </div>
       }
     </>
   )
