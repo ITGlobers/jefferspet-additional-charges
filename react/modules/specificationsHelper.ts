@@ -34,23 +34,26 @@ export const saveLocalStorageSpecifications = ({ productId, specifications }:Sav
         updatedSpecifications
     )
 
-    return updatedSpecifications
+    return parsedSpecifications
 }
 
-export const getProductContextSpecifications = ({ productContext, specificationsName }:ContextProps) => {
-    if(!productContext) return false
+export const getProductContextSpecifications = ({ productContext, specificationsName, productId }:ContextProps) => {
+    if(!productContext) return null
     
     const parsedProductContext = JSON.parse(productContext)
-    const productId  = parsedProductContext?.product?.productId
+    const productContextId  = parsedProductContext?.product?.productId
+    
+    if(productContextId !== productId) return null
+    
     const allSpecifications = parsedProductContext?.product?.properties
     const match = (specification:Specification) => specificationsName?.includes(specification?.name)
     const specifications = allSpecifications?.filter?.(match)
 
     if(!!productId){
-        saveLocalStorageSpecifications({ productId, specifications })
+        const specificationsSaved = saveLocalStorageSpecifications({ productId, specifications })
+        return specificationsSaved
     }
-
-    return specifications ?? false
+    return null
 }
 
 export const parseSpecifications = (specifications:Specification[]) => {

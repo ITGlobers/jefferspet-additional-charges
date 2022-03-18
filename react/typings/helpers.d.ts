@@ -1,6 +1,7 @@
 export interface ContextProps{
     productContext:string
     specificationsName:string[]
+    productId:string
 }
 export interface GetterProps{
     productId?:string
