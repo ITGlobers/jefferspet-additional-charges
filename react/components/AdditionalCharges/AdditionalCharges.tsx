@@ -37,12 +37,14 @@ const AdditionalCharges = () => {
 
     if(!items.length) return
 
-    items?.forEach(({ productId, quantity }:Item) => {
+    items?.forEach((item:Item) => {
+      const { productId, quantity, refId } = item
       const specifications = getSpecifications(productId)
       if(!specifications || productId === additionalChargeId){
         return
       }else{
-        const itemSpecifications = specifications
+        const itemSpecifications = specifications?.[refId]
+        console.log('itemSpecifications: ', itemSpecifications)
         const { AddShipAmtQty, AddShipAmt, HazShipAmt, HazShipAmtQty } = itemSpecifications ?? { addShipAmtQty:0, addShipAmt:0 }
         const addShipAmtQty = parseInt(AddShipAmtQty)
         const addShipAmt = parseFloat(AddShipAmt)
