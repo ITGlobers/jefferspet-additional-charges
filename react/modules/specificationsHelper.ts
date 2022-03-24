@@ -2,7 +2,6 @@ import {
     ContextProps, 
     GetterProps, 
     Specification,
-    GetSpecificationsProps,
     SaveProps
 } from '@typings/helpers'
 
@@ -24,17 +23,15 @@ export const saveLocalStorageSpecifications = ({ productId, specifications }:Sav
     if(!productId || !specifications) throw new Error('Error at saveLocalStorageSpecifications: productId or specifications are undefined')
     
     const currentSpecifications = getLocalStorageSpecification({}) ?? {}
-    const parsedSpecifications = parseSpecifications(specifications)
     
-    if(!parseSpecifications) return
 
-    const updatedSpecifications = JSON.stringify({...currentSpecifications, [productId]:parsedSpecifications})
+    const updatedSpecifications = JSON.stringify({...currentSpecifications, [productId]:specifications})
     localStorage.setItem(
         specificationFieldName, 
         updatedSpecifications
     )
 
-    return parsedSpecifications
+    return specifications
 }
 
 export const getProductContextSpecifications = ({ productContext, specificationsName, productId }:ContextProps) => {
@@ -47,10 +44,12 @@ export const getProductContextSpecifications = ({ productContext, specifications
     
     const allSpecifications = parsedProductContext?.product?.properties
     const match = (specification:Specification) => specificationsName?.includes(specification?.name)
-    const specifications = allSpecifications?.filter?.(match)
+    const contextSpecifications = allSpecifications?.find?.(match)
+    const specifications = JSON.parse(contextSpecifications?.values[0])
+    const { sku } =specifications
 
     if(!!productId){
-        const specificationsSaved = saveLocalStorageSpecifications({ productId, specifications })
+        const specificationsSaved = saveLocalStorageSpecifications({ productId, specifications:sku })
         return specificationsSaved
     }
     return null
@@ -68,22 +67,4 @@ export const parseSpecifications = (specifications:Specification[]) => {
     })
 
     return parsedSpecifications
-}
-
-
-export const getSpecifications = ({ specificationsName, productContext, productId }:GetSpecificationsProps) =>{
-  
-  const specifications = ( 
-    getLocalStorageSpecification({ productId }) 
-    ? 
-    getLocalStorageSpecification({ productId }) 
-    :
-    getProductContextSpecifications({ productContext, specificationsName })
-    ?
-    getProductContextSpecifications({ productContext, specificationsName })
-    :
-    null
-  )
-  
-  return specifications
 }

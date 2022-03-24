@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useProduct } from 'vtex.product-context'
 import { getLocalStorageSpecification, getProductContextSpecifications } from '../modules/specificationsHelper'
 
-const specificationsName = ["AddShipAmt", "AddShipAmtQty", "HazShipAmt", "HazShipAmtQty"] 
+const specificationsName = ["Shipping Charges"] 
 
 const useSpecifications = () => {
   const [state, ]:any = useState({})
