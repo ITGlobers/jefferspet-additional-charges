@@ -5,7 +5,7 @@ import {
     SaveProps
 } from '@typings/helpers'
 
-const specificationFieldName = 'specifications'
+const specificationFieldName = 'additionalCharges'
 
 export const getLocalStorageSpecification = ({ productId }:GetterProps) =>{
     const specifications = localStorage.getItem(specificationFieldName)
