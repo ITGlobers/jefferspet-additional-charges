@@ -20,5 +20,10 @@
     "component": "AdditionalChargesItem",
     "composition": "children",
     "allowed":"*"
+  },
+  "op-additional-charges-validation":{
+    "component": "OrderPlacedValidations",
+    "composition": "children",
+    "allowed":"*"
   }
 }

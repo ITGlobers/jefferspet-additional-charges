@@ -1,0 +1,3 @@
+import OrderPlacedValidations from './components/OrderPlacedValidations/OrderPlacedValidations'
+
+export default OrderPlacedValidations
