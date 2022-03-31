@@ -1,18 +1,17 @@
 
 interface Props{
-    itemIdex:number
+    itemIndex:number
     idSelector:string
 }
 
-export const removeAdditionalItem = ({ itemIdex, idSelector }:Props) =>{
+export const removeAdditionalItem = ({ itemIndex, idSelector }:Props) =>{
     setTimeout(()=>{
         const itemsWrapper = document.getElementById(idSelector)
-        const itemsSelector = 'div.vtex-flex-layout-0-x-flexRowContent--minicart-components'
+        const itemsSelector = 'div.vtex-order-placed-2-x-package--delivery'
         const itemsNodeList:any = itemsWrapper?.querySelectorAll(itemsSelector)
         const itemsList = [...itemsNodeList]
-        itemsList[itemIdex]?.remove()
-        console.log('itemIdex: ', itemIdex)
-    }, 10)
+        itemsList[itemIndex]?.remove()
+    }, 1000)
 }
 
 export const deleteAdditionalCartItem = () =>{
