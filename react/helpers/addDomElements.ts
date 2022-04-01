@@ -1,5 +1,3 @@
-import '../css/additionalsItem.css'
-
 interface Props{
   classNode:string
   additionalValue:string

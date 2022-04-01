@@ -8,7 +8,7 @@ import useQuantityValidation from '../../hooks/useQuantityValidation'
 const additionalChargeId = "109139"
 
 const AdditionalCharges = () => {
-  
+
   const { orderForm:{ items } } = useOrderForm()
   const [additionalsPerItem, setAdditionalsPerItem]:any = useState({}) //Guardar productId:additionalTotalChage
   const [getSpecifications] = useSpecifications()
@@ -44,7 +44,6 @@ const AdditionalCharges = () => {
         return
       }else{
         const itemSpecifications = specifications?.[refId]
-        console.log('itemSpecifications: ', itemSpecifications)
         const { AddShipAmtQty, AddShipAmt, HazShipAmt, HazShipAmtQty } = itemSpecifications ?? { addShipAmtQty:0, addShipAmt:0 }
         const addShipAmtQty = parseInt(AddShipAmtQty)
         const addShipAmt = parseFloat(AddShipAmt)
@@ -63,7 +62,7 @@ const AdditionalCharges = () => {
     setAdditionalsPerItem(itemAdditionals)
   }
 
-  useEffect(()=>{ 
+  useEffect(()=>{
     setTotalsByItem()
   }, [items])
 
@@ -71,7 +70,7 @@ const AdditionalCharges = () => {
     const currentTotalValue = getCurrentTotalValue() ?? 0
     const totalValue = totalChargesValue()
     const quantityController = totalValue - currentTotalValue != 0
-    if(quantityController && totalValue){   
+    if(quantityController && totalValue){
       //Add additional charges
       includeAdditionalCharges(totalValue)
     }else if(totalValue === 0){
