@@ -23,8 +23,9 @@ const OrderPlacedValidations = ({ children }:Props) => {
         if(!items) return
         const countainAdditionals = itemsId?.includes(additionalChargeId)
         if(countainAdditionals){
+            const { sellingPrice, quantity } = additionalsItem
             const itemIndex = items.findIndex((item:Item) => match(item))
-            const additionalValue =  parsePrice({value: additionalsItem?.sellingPrice / 100})
+            const additionalValue =  parsePrice({value: (sellingPrice * quantity) / 100})
             const classNode = 'li.vtex-order-placed-2-x-totalListItem--Tax'
             removeAdditionalItem({ itemIndex, idSelector })
             addAdditionalValue({ classNode, additionalValue })
