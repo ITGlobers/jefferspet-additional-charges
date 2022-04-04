@@ -2,6 +2,7 @@ import React, { ReactChildren, useEffect, useState } from 'react'
 import { useOrderForm } from 'vtex.order-manager/OrderForm'
 import { useCssHandles } from 'vtex.css-handles'
 import { deleteAdditionalCartItem } from '../../helpers/removeItem'
+import { parsePrice } from '../../modules/parseValues'
 
 import './AdditionalChargesItem.css'
 
@@ -24,8 +25,8 @@ const AdditionalChragesItem = ({ children }:Props) => {
   const handles = useCssHandles(CSS_HANDLES)
   const matchCondition = (item:Item) => item.id === additionalChargeId
   const additionalItemIndex = items?.findIndex?.(matchCondition)
-  const [price, setPrice]:any = useState(0) 
-  
+  const [price, setPrice]:any = useState(0)
+
   const getCurrentTotalValue = () =>{
     const match = (item:Item) => item?.id === additionalChargeId
     const additionalItem = items?.find(match)
@@ -43,7 +44,7 @@ const AdditionalChragesItem = ({ children }:Props) => {
     <>
       <div id={itemsWrapperId} className={ handles.items__wrapper }>
         { children }
-      </div>  
+      </div>
       {
         !isNaN(price) && (price !== 0) && additionalItemIndex > 0
         &&
@@ -52,7 +53,7 @@ const AdditionalChragesItem = ({ children }:Props) => {
             <span className={`${handles.additionals__icon} mr4`}></span>
             Additional charges:
           </p>
-          <p className={ `${handles.additionals__price} ml4` }> ${ price }</p> 
+          <p className={ `${handles.additionals__price} ml4` }> { parsePrice({value: price}) }</p>
         </div>
       }
     </>
