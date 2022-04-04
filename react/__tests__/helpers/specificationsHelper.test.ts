@@ -1,49 +1,44 @@
-import { getProductContextSpecifications, getSpecifications, getProductSpecifications } from "../../modules/specificationsHelper";
+import { getProductContextSpecifications } from "../../modules/specificationsHelper";
 
 describe('specificationsHelper',()=>{
-    
+
     const productContext = JSON.stringify({
         product:{
+            productId: '1234',
             properties:[
-                {name:'Specification1'},
-                {name:'Specification2'},
-                {name:'Specification3'}
+                {
+                  name:'Specification1',
+                  values:['sku:{1234:{}}']
+                },
+                {
+                  name:'Specification2',
+                  values:['sku:{1232:{}}']
+                },
+                {
+                  name:'Specification3',
+                  values:['sku:{1233:{}}']
+                }
             ]
         }
     })
 
 
-    test('getProductContextSpecifications must return false when specifications does not exist', ()=>{
-        
+    test('getProductContextSpecifications must return null value when specifications does not exist', ()=>{
+
         const productContext = JSON.stringify({specifications:{}})
         const specificationsName = ['Another thing']
 
-        const specification = getProductContextSpecifications({productContext, specificationsName})
+        const specification = getProductContextSpecifications({productContext, specificationsName, productId:'abc'})
 
-        expect(specification).toBe(false)
+        expect(specification).toBeNull()
     })
     test('getProductContextSpecifications must return an object when specifications exists', ()=>{
-        
-        const specificationsName = ['Specification1', 'Specification2']
 
-        const specification = getProductContextSpecifications({productContext, specificationsName})
-
-        expect(specification).toMatchObject([{name:'Specification1'}, {name:'Specification2'}])
-    })
-    test('When specifications does not exist into local storage either product context getSpecifications must run getProductSpecifications ', ()=>{
-        
-        const specificationsName = ['Specific']
-
-        getSpecifications({productContext, specificationsName, productId:''})
-
-        expect(getProductSpecifications).toBeCalled()
-    })
-    test('getSpecifications must return an specification object when specifications does exist', ()=>{
-        
         const specificationsName = ['Specification1']
+        const productId = '1234'
 
-        const specification = getSpecifications({productContext, specificationsName, productId:''})
+        const specification = getProductContextSpecifications({productContext, specificationsName, productId})
 
         expect(specification).toMatchObject([{name:'Specification1'}])
-    })  
+    })
 })
