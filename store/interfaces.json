@@ -1,13 +1,4 @@
 {
-  "minicart-product-list-itglobers": {
-    "component": "ProductList",
-    "composition": "children",
-    "allowed": "*",
-    "context": "ProductContext"
-  },
-  "additional-charges": {
-    "component": "actionsAdditionalApp"
-  },
   "additional-charges-logic": {
     "component": "AdditionalCharges",
     "composition":"children",
