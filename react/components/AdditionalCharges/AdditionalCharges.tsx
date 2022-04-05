@@ -10,9 +10,9 @@ const additionalChargeId = "109139"
 const AdditionalCharges = () => {
 
   const { orderForm:{ items } } = useOrderForm()
-  const [additionalsPerItem, setAdditionalsPerItem]:any = useState({}) //Guardar productId:additionalTotalChage
+  const [additionalsPerItem, setAdditionalsPerItem]:any = useState({})
   const [getSpecifications] = useSpecifications()
-  const [includeAdditionalCharges]:any = useQuantityValidation()
+  const [updateAdditionalCharges]:any = useQuantityValidation()
 
   const getCurrentTotalValue = () =>{
     const match = (item:Item) => item?.id === additionalChargeId
@@ -71,10 +71,9 @@ const AdditionalCharges = () => {
     const totalValue = totalChargesValue()
     const quantityController = totalValue - currentTotalValue != 0
     if(quantityController && totalValue){
-      //Add additional charges
-      includeAdditionalCharges(totalValue)
+      updateAdditionalCharges(totalValue)
     }else if(totalValue === 0){
-      includeAdditionalCharges(totalValue)
+      updateAdditionalCharges(totalValue)
     }
   }, [additionalsPerItem])
 
