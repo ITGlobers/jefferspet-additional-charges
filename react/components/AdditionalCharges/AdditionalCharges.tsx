@@ -56,7 +56,7 @@ const AdditionalCharges = () => {
         const quantityToAdd = isNaN(hazShipToAdd) ? shipToAdd : shipToAdd + hazShipToAdd
         itemAdditionals = {
           ...itemAdditionals,
-          [productId]:quantityToAdd
+          [refId]:quantityToAdd
         }
       }
     })
