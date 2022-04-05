@@ -17,3 +17,10 @@ export const addAdditionalValue = ({ classNode, additionalValue }:Props) => {
   `
   baseNode?.after(additionalsItem)
 }
+
+export const changeMinicartCounter = (quantity:string) => {
+  const minicartButtonSelector = 'span.vtex-minicart-2-x-minicartQuantityBadgeDefault'
+  const minicartButton = document.querySelector(minicartButtonSelector) as HTMLElement
+  if(!minicartButton) throw new Error ('The mini cart button quantity could not be updated')
+  minicartButton.innerText = quantity
+}

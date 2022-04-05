@@ -3,6 +3,7 @@ import { useOrderForm } from 'vtex.order-manager/OrderForm'
 import { Item } from '@typings/orderForm'
 import useSpecifications from '../../hooks/useSpecifications'
 import useQuantityValidation from '../../hooks/useQuantityValidation'
+import { changeMinicartCounter } from '../../helpers/addDomElements'
 
 
 const additionalChargeId = "109139"
@@ -65,6 +66,14 @@ const AdditionalCharges = () => {
   useEffect(()=>{
     setTotalsByItem()
   }, [items])
+
+  useEffect(()=>{
+    const itemsId = items.map((item:Item) => item.id)
+    const itemsContainAdditionals = itemsId.includes(additionalChargeId)
+    const totalItemsLessAdditional = (items.length - 1).toString()
+    if(!itemsContainAdditionals) return
+    changeMinicartCounter(totalItemsLessAdditional)
+  }, [ items ])
 
   useEffect(()=>{
     const currentTotalValue = getCurrentTotalValue() ?? 0
